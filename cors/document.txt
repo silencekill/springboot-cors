@@ -1,0 +1,21 @@
+解决跨域问题(两种方式)
+    1.前台使用jsonp
+        局限性:只能发送get请求
+    2.后台使用cors
+        1:在方法上添加注解
+            @CrossOrigin(origins = "http://localhost:8081")
+        2:在controller类上添加注解
+            @CrossOrigin(origins = "http://localhost:8081")
+        3:使用配置类
+            @Configuration
+            public class WebMvcConfig implements WebMvcConfigurer {
+
+                @Override
+                public void addCorsMappings(CorsRegistry registry) {
+                    registry.addMapping("/***")
+                            .allowedOrigins("http://localhost:8081")
+                            .allowedHeaders("*")
+                            .allowedMethods("*")
+                            .maxAge(30*1000);
+                }
+            }
